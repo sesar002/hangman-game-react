@@ -1,25 +1,36 @@
 const initialState = {
+  quote: "",
   quoteId: "",
-  length: "",
-  uniqueCharacters: "",
+  quoteLength: 0,
+  uniqueCharacters: 0,
   userName: "",
-  errors: "",
-  duration: "",
+  errors: 0,
+  startTime: 0,
+  hiddenQuote: [],
+  disableds: [],
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "changeQuote":
-      return { ...state, quoteId: action.newQuote };
-    case "changeLength":
-      return { ...state, length: action.newLength };
+      return { ...state, quote: action.newQuote };
+    case "changeQuoteId":
+      return { ...state, quoteId: action.newQuoteId };
+    case "changeQuoteLength":
+      return { ...state, quoteLength: action.newQuoteLength };
     case "changeUniqueCharacters":
       return { ...state, uniqueCharacters: action.newUniqueCharacters };
     case "changeUserName":
       return { ...state, userName: action.newUserName };
     case "changeErrors":
       return { ...state, errors: action.newErrors };
-    case "changeDuration":
-      return { ...state, duration: action.newDuration };
+    case "changeStartTime":
+      return { ...state, startTime: action.newStartTime };
+    case "changeEndTime":
+      return { ...state, endTime: action.newEndTime };
+    case "changeHiddenQuote":
+      return { ...state, hiddenQuote: action.newHiddenQuote };
+    case "changeDisableds":
+      return { ...state, disableds: action.newDisableds };
     default:
       return state;
   }

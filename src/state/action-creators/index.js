@@ -6,11 +6,19 @@ export const changeQuote = (newQuote) => {
     });
   };
 };
-export const changeLength = (newLength) => {
+export const changeQuoteId = (newQuoteId) => {
   return (dispatch) => {
     dispatch({
-      type: "changeLength",
-      newLength: newLength,
+      type: "changeQuoteId",
+      newQuoteId: newQuoteId,
+    });
+  };
+};
+export const changeQuoteLength = (newQuoteLength) => {
+  return (dispatch) => {
+    dispatch({
+      type: "changeQuoteLength",
+      newQuoteLength: newQuoteLength,
     });
   };
 };
@@ -38,11 +46,35 @@ export const changeErrors = (newErrors) => {
     });
   };
 };
-export const changeDuration = (newDuration) => {
+export const changeStartTime = (newStartTime) => {
   return (dispatch) => {
     dispatch({
-      type: "changeDuration",
-      newDuration: newDuration,
+      type: "changeStartTime",
+      newStartTime: newStartTime,
+    });
+  };
+};
+export const changeHiddenQuote = (newHiddenQuote) => {
+  return (dispatch) => {
+    dispatch({
+      type: "changeHiddenQuote",
+      newHiddenQuote: newHiddenQuote,
+    });
+  };
+};
+export const changeDisableds = (newDisableds) => {
+  return (dispatch) => {
+    dispatch({
+      type: "changeDisableds",
+      newDisableds: newDisableds,
+    });
+  };
+};
+export const changeHighscores = (newHighscores) => {
+  return (dispatch) => {
+    dispatch({
+      type: "changeHighscores",
+      newHighscores: newHighscores,
     });
   };
 };
