@@ -1,39 +1,40 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import "../style.scss";
+import { useDispatch } from "react-redux";
+import { actionCreators } from "../../state/index";
 import { bindActionCreators } from "redux";
-import { actionCreators } from "../state/index";
 import axios from "axios";
-import "./style.scss";
-import Game from "./game/Game";
-import { findUnique, isLetter } from "./functions";
+import { findUnique, isLetter } from "../functions";
+import Alphabet from "./Alphabet";
+import Hangman from "./Hangman";
+import Quote from "./Quote";
 
-const Main = () => {
-  const user = useSelector((state) => state.user);
-
+const Game = () => {
   const dispatch = useDispatch();
 
   const {
-    changeUserName,
     changeQuote,
+    changeUniqueCharacters,
     changeQuoteId,
     changeQuoteLength,
     changeStartTime,
+    changeErrors,
     changeHiddenQuote,
-    changeUniqueCharacters,
+    changeDisableds,
   } = bindActionCreators(actionCreators, dispatch);
 
-  const handleSubmit = () => {
+  const handleClick = () => {
     axios
       .get("https://api.quotable.io/random")
       .then((res) => {
         const data = res.data;
+        const unique = findUnique(data.content);
+        let uniqueLength = 0;
 
-        if (data.content.length > 50) {
-          handleSubmit();
+        if (data.length > 50) {
+          handleClick();
           return;
         } else {
-          const unique = findUnique(data.content);
-          let uniqueLength = 0;
           for (let i = 0; i < unique.length; i++) {
             if (isLetter(unique[i])) {
               uniqueLength++;
@@ -56,29 +57,24 @@ const Main = () => {
           changeQuoteLength(data.length);
           changeHiddenQuote(newHiddenQuote);
           changeStartTime(new Date().getTime());
+          changeErrors(0);
           changeUniqueCharacters(uniqueLength);
+          changeDisableds([]);
         }
       })
       .catch((err) => console.log(err));
   };
+
   return (
-    <div>
-      <div
-        className={user.quote === "" ? "start-screen" : " start-screen move-up"}
-      >
-        <h1>Welcome to</h1>
-        <span className="logo">HANGMAN GAME</span>
-        <h1 className="bottom-header">enter your name to continue:</h1>
-        <input
-          type="text"
-          minLength="2"
-          onChange={(e) => changeUserName(e.target.value)}
-        />
-        <button onClick={() => handleSubmit()}>Play</button>
-      </div>
-      <Game />
+    <div className="game">
+      <button className="restart" onClick={handleClick}>
+        Restart
+      </button>
+      <Hangman />
+      <Quote />
+      <Alphabet />
     </div>
   );
 };
 
-export default Main;
+export default Game;

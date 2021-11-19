@@ -70,11 +70,3 @@ export const changeDisableds = (newDisableds) => {
     });
   };
 };
-export const changeHighscores = (newHighscores) => {
-  return (dispatch) => {
-    dispatch({
-      type: "changeHighscores",
-      newHighscores: newHighscores,
-    });
-  };
-};
